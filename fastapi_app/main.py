@@ -25,7 +25,9 @@ class QueryRequest(BaseModel):
 
 @app.post("/ask")
 def ask(req: QueryRequest):
+    print("1")
     res = qa_chain(req.question)
+    print("5")
     return {
         "answer": res["result"],
         "sources": [doc.metadata.get("source", "unknown") for doc in res["source_documents"]]

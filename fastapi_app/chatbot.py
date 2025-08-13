@@ -11,7 +11,7 @@ from qdrant_client import QdrantClient
 from pydantic import Field
 
 
-# --- Embedding wrapper dla SentenceTransformer ---
+# --- Embedding wrapper for SentenceTransformer ---
 class SentenceTransformerEmbeddings(Embeddings):
     def __init__(self, model_name: str):
         self.model = SentenceTransformer(model_name)
@@ -28,7 +28,12 @@ class OllamaLLM(LLM):
     ollama_url: str = Field(...)
 
     def _call(self, prompt: str, stop=None) -> str:
-        resp = requests.post(f"{self.ollama_url}/api/generate", json={"model": "mistral-finance-ft", "prompt": prompt})
+        print("in call 1")
+        resp = requests.post(f"{self.ollama_url}/api/generate", json={"model": "mistral-finance-ft", "prompt": prompt, "stream": False})
+        print("in call 2")
+        print("in call 3")
+        print(resp.text)
+        print("after resp")
         return resp.json().get("response", "")
 
     @property
@@ -42,7 +47,9 @@ class OllamaLLM(LLM):
   
 # --- Creating QA chain---
 def create_qa_chain(qdrant_url, ollama_url):
+    print("2")
     llm = OllamaLLM(ollama_url=ollama_url)
+    print("3")
     emb_model = SentenceTransformer("all-MiniLM-L6-v2")
 
     def embed(texts):
@@ -57,7 +64,7 @@ def create_qa_chain(qdrant_url, ollama_url):
 
     vectordb = Qdrant(client=client, collection_name="finance_knowledge", embeddings=embed)
     retriever = vectordb.as_retriever(search_kwargs={"k": 4})
-
+    print("4")
     return RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=True)
 
 
