@@ -39,6 +39,6 @@ def create_qa_chain(qdrant_url, ollama_url):
 
     client = QdrantClient(host=host, port=port)
 
-    vectordb = Qdrant(client=client, collection_name="finance_knowledge", embeddings=embeddings)
+    vectordb = Qdrant(client=client, collection_name="finance_docs", embeddings=embeddings)
     retriever = vectordb.as_retriever(search_kwargs={"k": 4})
     return RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=True)
