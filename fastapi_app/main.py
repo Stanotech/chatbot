@@ -12,9 +12,9 @@ OLLAMA_URL = os.getenv("OLLAMA_URL")
 
 # Init Qdrant collection
 client = QdrantClient(url=QDRANT_URL)
-if "finance_knowledge" not in [c.name for c in client.get_collections().collections]:
+if "finance_docs" not in [c.name for c in client.get_collections().collections]:
     client.create_collection(
-        collection_name="finance_knowledge",
+        collection_name="finance_docs",
         vectors_config=VectorParams(size=384, distance=Distance.COSINE)
     )
 

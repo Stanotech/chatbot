@@ -31,9 +31,8 @@ services:
       - ollama
     ports:
       - "8000:8000"
-    environment:
-      - QDRANT_URL=http://qdrant:6333
-      - OLLAMA_URL=http://ollama:11434
+    env_file:
+    - .env
     volumes:
     - ./fastapi_app:/app
 
