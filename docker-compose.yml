@@ -25,7 +25,7 @@ services:
       "
 
   fastapi:
-    build: ./fastapi_app
+    build: .
     depends_on:
       - qdrant
       - ollama
@@ -34,7 +34,8 @@ services:
     env_file:
     - .env
     volumes:
-    - ./fastapi_app:/app
+    - ./app:/app
+    - ./data:/data
 
 volumes:
   qdrant_data:

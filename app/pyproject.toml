@@ -1,0 +1,11 @@
+[tool.ruff]
+
+lint.select = ["E", "F", "W", "I"]  
+
+lint.ignore = ["E501"]  
+
+line-length = 99
+
+fix = true  
+
+exclude = ["venv", ".git", "__pycache__"]  
