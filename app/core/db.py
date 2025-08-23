@@ -1,7 +1,7 @@
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 
-from core.config import settings
+from app.core.config import settings
 
 
 def init_qdrant() -> QdrantClient:

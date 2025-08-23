@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 
-from models.schemas import QueryRequest, QueryResponse
+from app.models.schemas import QueryRequest, QueryResponse
 
 router = APIRouter()
 

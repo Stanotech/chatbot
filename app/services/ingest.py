@@ -1,11 +1,10 @@
 from logging import getLogger
 
-from langchain.embeddings import SentenceTransformerEmbeddings
+from app.core.config import settings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_community.vectorstores import Qdrant
-
-from core.config import settings
 
 logger = getLogger(__name__)
 
@@ -25,7 +24,7 @@ def load_documents() -> list:
         elif file_path.suffix == ".pdf":
             loader = PyPDFLoader(str(file_path))
         else:
-            logger.warning(f"⚠ Pomijam format: {file_path.name}")
+            logger.warning(f"⚠ Skip other format: {file_path.name}")
             continue
         docs.extend(loader.load())
     return docs

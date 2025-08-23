@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
-from api.routes_ask import router as ask_router
-from api.routes_health import router as health_router
-from core.config import settings
-from core.db import init_qdrant
-from services.qa import init_qa_chain
+from app.api.routes_ask import router as ask_router
+from app.api.routes_health import router as health_router
+from app.core.config import settings
+from app.core.db import init_qdrant
+from app.services.qa import init_qa_chain
 
 app = FastAPI(title="Finance QA Chatbot")
 
