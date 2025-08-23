@@ -7,11 +7,15 @@ class OllamaLLM(LLM):
     ollama_url: str = Field(...)
 
     def _call(self, prompt: str, stop: list = []) -> str:
-        resp = requests.post(
-            f"{self.ollama_url}/api/generate",
-            json={"model": "mistral-finance-ft", "prompt": prompt, "stream": False},
-        )
-        return resp.json().get("response", "")
+        try:
+            resp = requests.post(
+                f"{self.ollama_url}/api/generate",
+                json={"model": "mistral-finance-ft", "prompt": prompt, "stream": False},
+            )
+            return resp.json().get("response", "")
+
+        except Exception as e:
+            raise Exception(f"Ollama error: {e}")
 
     @property
     def _identifying_params(self) -> dict:
